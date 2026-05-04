@@ -62,14 +62,11 @@ describe("decide", () => {
   });
 
   describe("privileged-command refusal", () => {
-    it.each(["sudo ls", "  sudo ls", "\\sudo ls", '"sudo" ls'])(
-      "refuses %s",
-      async (command) => {
-        const result = await decide({ command, args: [], cwd: ROOT, config: makeConfig() });
-        expect(result.allowed).toBe(false);
-        expect(result.reason).toContain("privileged command");
-      },
-    );
+    it.each(["sudo ls", "  sudo ls", "\\sudo ls", '"sudo" ls'])("refuses %s", async (command) => {
+      const result = await decide({ command, args: [], cwd: ROOT, config: makeConfig() });
+      expect(result.allowed).toBe(false);
+      expect(result.reason).toContain("privileged command");
+    });
 
     it.each(["doas", "su", "pkexec", "runuser"])("refuses %s alone", async (command) => {
       const result = await decide({ command, args: [], cwd: ROOT, config: makeConfig() });
