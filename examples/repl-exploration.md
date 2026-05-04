@@ -32,7 +32,7 @@
 4. `terminal_type`, `text: "Path.home()"`, `submit: true`.
 5. `terminal_wait_for`, `predicate: { type: "prompt" }`.
 6. `terminal_snapshot`, `since_last: true`. Reads the result.
-7. Repeat steps 4–6 with `[p.name for p in Path.home().iterdir() if not p.name.startswith('.')]`.
+7. Repeat steps 4 through 6 with `[p.name for p in Path.home().iterdir() if not p.name.startswith('.')]`.
 8. `terminal_close`.
 
 **What this teaches**: deterministic interactive flows. Each input is paired with a `wait_for(prompt)` so the agent never reads stale output. `since_last: true` keeps each snapshot small.
