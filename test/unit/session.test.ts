@@ -17,10 +17,12 @@ function readBuffer(session: Session): string {
   return lines.join("\n");
 }
 
-function minimalEnv(): Record<string, string> {
+function fullEnv(): Record<string, string> {
+  // Pass the entire host env through so platform-specific vars (TMPDIR,
+  // DYLD_LIBRARY_PATH, etc.) that node-pty's posix_spawnp may need on macOS
+  // aren't filtered out.
   const out: Record<string, string> = {};
-  for (const key of ["PATH", "HOME", "USER", "LANG", "LC_ALL", "TERM", "SHELL"]) {
-    const value = process.env[key];
+  for (const [key, value] of Object.entries(process.env)) {
     if (value !== undefined) out[key] = value;
   }
   return out;
@@ -33,7 +35,7 @@ describe.skipIf(isWindows)("Session", () => {
       command: "bash",
       args: ["-c", "echo hello"],
       cwd: process.cwd(),
-      env: minimalEnv(),
+      env: fullEnv(),
       cols: 80,
       rows: 24,
       maxOutputBytes: 1024 * 1024,
@@ -53,7 +55,7 @@ describe.skipIf(isWindows)("Session", () => {
       command: "bash",
       args: ["-c", "true"],
       cwd: process.cwd(),
-      env: minimalEnv(),
+      env: fullEnv(),
       cols: 80,
       rows: 24,
       maxOutputBytes: 1024 * 1024,
