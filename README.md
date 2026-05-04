@@ -81,7 +81,7 @@ termpilot reads configuration from environment variables. Sensible defaults appl
 | `TERMPILOT_SESSION_TIMEOUT_MS` | `1800000` (30 min) | Idle sessions auto-close after this. |
 | `TERMPILOT_AUDIT_LOG` | (disabled) | Path to an append-only JSONL audit log. |
 | `TERMPILOT_LOG_LEVEL` | `warn` | One of `debug`, `info`, `warn`, `error`. Logs go to stderr only. |
-| `TERMPILOT_ALLOW_PRIVILEGED` | `false` | When false, refuses commands starting with `sudo`, `doas`, `su`. |
+| `TERMPILOT_ALLOW_PRIVILEGED` | `false` | When false, refuses commands starting with `sudo`, `doas`, `su`, `pkexec`, `runuser`. |
 | `TERMPILOT_ENV_ALLOWLIST` | `PATH,HOME,USER,LANG,LC_ALL,TERM,SHELL` | Which host env vars get inherited by spawned sessions. |
 
 Full details and security trade-offs in [docs/security.md](docs/security.md).
@@ -92,7 +92,7 @@ termpilot runs commands on your machine on behalf of an LLM. That's intrinsicall
 
 - **Default policy is `warn`**: dangerous-pattern detection runs on every command, and obviously bad inputs (`rm -rf /`, fork bombs, `dd if=/dev/zero of=/dev/sd*`) are refused outright.
 - **Workspace restriction**: every spawn must `cwd` within `TERMPILOT_WORKSPACE_ROOT`. Path traversal attempts fail.
-- **No automatic privilege escalation**: `sudo`, `doas`, and `su` are blocked unless `TERMPILOT_ALLOW_PRIVILEGED=true`.
+- **No automatic privilege escalation**: `sudo`, `doas`, `su`, `pkexec`, and `runuser` are blocked unless `TERMPILOT_ALLOW_PRIVILEGED=true`.
 - **Resource caps**: concurrent sessions, scrollback bytes, idle timeout, all bounded by config.
 - **Audit log**: optional append-only JSONL log of every command, args, cwd, exit code, duration.
 - **Stdio only**: no network listener in v0.1, so the server isn't exposed to anything off the local machine.
