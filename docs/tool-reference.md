@@ -128,7 +128,7 @@ Send named keys.
 
 **Key dictionary:**
 
-`Enter`, `Tab`, `Esc`, `Backspace`, `Delete`, `Up`, `Down`, `Left`, `Right`, `Home`, `End`, `PageUp`, `PageDown`, `F1`–`F12`, `Ctrl-<char>` (e.g. `Ctrl-C`, `Ctrl-D`, `Ctrl-Z`), `Alt-<char>`, `Shift-Tab`.
+`Enter`, `Tab`, `Esc`, `Backspace`, `Delete`, `Up`, `Down`, `Left`, `Right`, `Home`, `End`, `PageUp`, `PageDown`, `F1` through `F12`, `Ctrl-<char>` (e.g. `Ctrl-C`, `Ctrl-D`, `Ctrl-Z`), `Alt-<char>`, `Shift-Tab`.
 
 Multiple keys in one call are sent in order with no delay. To insert a delay, call `terminal_press` twice.
 
@@ -194,7 +194,7 @@ Render the current buffer to PNG.
 | `font_family` | no | `Menlo, Consolas, monospace` | First-available wins. |
 | `theme` | no | `dark` | `dark` or `light`. |
 
-**Returns:** MCP `image` content with base64-encoded PNG, `mimeType: "image/png"`. Dimensions are roughly `cols × font_size × 0.6` wide, `rows × font_size × 1.4` tall.
+**Returns:** MCP `image` content with base64-encoded PNG, `mimeType: "image/png"`. Dimensions are roughly `cols * font_size * 0.6` wide, `rows * font_size * 1.4` tall.
 
 For pixel-perfect TUI verification (vim, htop, ncurses apps), the screenshot includes ANSI colors, bold, italic, and reverse-video.
 
