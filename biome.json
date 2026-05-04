@@ -1,8 +1,16 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
   "files": {
-    "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.json"],
-    "experimentalScannerIgnores": ["dist", "node_modules", "coverage", "*.tsbuildinfo"]
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.json",
+      "!dist",
+      "!node_modules",
+      "!coverage",
+      "!**/*.tsbuildinfo"
+    ]
   },
   "formatter": {
     "enabled": true,
