@@ -5,6 +5,7 @@ import type { SessionManager } from "../pty/manager.js";
 import { makeCloseTool } from "./tools/close.js";
 import { makeListTool } from "./tools/list.js";
 import { makeOpenTool } from "./tools/open.js";
+import { makePressTool } from "./tools/press.js";
 import { makeResizeTool } from "./tools/resize.js";
 import { makeTypeTool } from "./tools/type.js";
 
@@ -31,5 +32,6 @@ export function buildRegistry(deps: ToolDeps): Tool[] {
     makeListTool(deps),
     makeResizeTool(deps),
     makeTypeTool(deps),
+    makePressTool(deps),
   ];
 }
