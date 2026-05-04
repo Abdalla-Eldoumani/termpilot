@@ -41,7 +41,7 @@ function readState(session: Session): SessionState {
   };
 }
 
-function waitForPredicate(
+export function waitForPredicate(
   session: Session,
   predicate: Predicate,
   timeoutMs: number,
