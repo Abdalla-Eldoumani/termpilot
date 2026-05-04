@@ -60,7 +60,7 @@ Most TUI tools (vim, htop, gdb TUI mode) render with colors, bolds, and box-draw
 
 The implementation walks the xterm-headless buffer cell by cell, drawing each character into a canvas with the cell's foreground/background. Output is base64 PNG returned as MCP `image` content. The MCP client passes the image into the model's vision context, and the agent can reason over it directly.
 
-Trade-off: we picked `canvas` (Cairo bindings) over Puppeteer (headless Chromium with xterm.js DOM). Canvas is ~10× lighter and ~10× faster, but the rendering is only as accurate as our cell-walker. Real xterm.js handles edge cases (combining characters, Unicode width tables, ligatures) that our walker won't catch. For pixel-perfect screenshots we'd switch to Puppeteer; for "good enough to verify a TUI laid out correctly" the canvas path wins.
+Trade-off: we picked `canvas` (Cairo bindings) over Puppeteer (headless Chromium with xterm.js DOM). Canvas is roughly 10x lighter and 10x faster, but the rendering is only as accurate as our cell-walker. Real xterm.js handles edge cases (combining characters, Unicode width tables, ligatures) that our walker won't catch. For pixel-perfect screenshots we'd switch to Puppeteer; for "good enough to verify a TUI laid out correctly" the canvas path wins.
 
 ## Why Playwright-style API instead of PTY primitives
 
