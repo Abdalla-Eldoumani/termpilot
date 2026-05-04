@@ -55,8 +55,10 @@ export function buildSnapshot(session: Session, options: SnapshotOptions): Snaps
   const exit: ExitInfo | null = session.exit;
   const status = exit ? "exited" : "running";
 
-  // Capturing the count must happen before markSnapshot resets it.
-  session.markSnapshot();
+  // buildSnapshot is pure and does not advance the session's snapshot mark.
+  // Callers that want sinceLast tracking to advance (the snapshot tool) must
+  // call session.markSnapshot() explicitly. Internal callers that build
+  // intermediate snapshots (wait_for polling) leave the mark alone.
 
   return {
     session: {

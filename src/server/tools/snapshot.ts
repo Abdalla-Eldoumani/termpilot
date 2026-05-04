@@ -24,6 +24,7 @@ export function makeSnapshotTool(deps: ToolDeps): Tool {
         maxLines: parsed.max_lines,
         sinceLast: parsed.since_last,
       });
+      session.markSnapshot();
       return textResponse(yaml);
     },
   };
