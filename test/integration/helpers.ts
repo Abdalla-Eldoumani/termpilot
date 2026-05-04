@@ -32,7 +32,17 @@ export interface ToolBundle {
 }
 
 export function setupTools(env: Record<string, string> = {}): ToolBundle {
-  const config = parseConfig(env);
+  // Pass every host env var through the manager's allowlist so spawned
+  // sessions inherit platform-specific vars (TMPDIR, DYLD_LIBRARY_PATH on
+  // macOS, etc) that node-pty's posix_spawnp may need. Production servers
+  // keep the conservative default; tests need the full set.
+  const allKeys = Object.keys(process.env)
+    .filter((key) => process.env[key] !== undefined)
+    .join(",");
+  const config = parseConfig({
+    TERMPILOT_ENV_ALLOWLIST: allKeys,
+    ...env,
+  });
   const manager = new SessionManager(config, newSessionId);
   const deps = { config, manager };
   return {
