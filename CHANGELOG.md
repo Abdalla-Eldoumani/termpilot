@@ -29,7 +29,7 @@ The first public alpha. Stdio-only MCP server with the ten core tools, default-c
   - Append-only JSONL audit log when `TERMPILOT_AUDIT_LOG` is set; one entry per refused attempt and one entry per session exit with `exit_code` and `duration_ms`.
 - Cross-platform support: macOS (arm64, x64), Linux (x64, arm64), Windows (ConPTY).
 - Public docs: `README.md`, `SECURITY.md`, `CONTRIBUTING.md`, plus `docs/getting-started.md`, `docs/tool-reference.md`, `docs/security.md`, `docs/recipes.md`, `docs/architecture.md`, `docs/faq.md`.
-- CI matrix on GitHub Actions: Linux, macOS, Windows × Node 20 and 22.
+- CI matrix on GitHub Actions: Linux, macOS, Windows by Node 20 and 22.
 - Release workflow that publishes to npm with `--provenance` on tag push.
 
 ### Known limitations
