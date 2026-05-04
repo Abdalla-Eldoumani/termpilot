@@ -5,7 +5,7 @@ A Model Context Protocol server that drives terminal sessions the way Playwright
 Open a session, type, press keys, snapshot the screen, wait for predicates, screenshot. Built for AI agents that need to test CLIs, debug REPLs, run build pipelines, drive interactive debuggers, and verify operating systems under emulation.
 
 ```
-$ npm install -g @termpilot/server
+$ npm install -g termpilot-mcp
 $ claude mcp add termpilot termpilot
 ```
 
@@ -43,7 +43,7 @@ For OS work specifically, termpilot composes cleanly with [`qemu-mcp-server`](ht
 Requirements: Node.js 20 or newer. A C++ toolchain (Xcode CLI tools on macOS, `build-essential` + `python3` on Linux, Visual Studio Build Tools on Windows) is needed at install time because [`node-pty`](https://github.com/microsoft/node-pty) builds a native module.
 
 ```bash
-npm install -g @termpilot/server
+npm install -g termpilot-mcp
 ```
 
 Add it to Claude Code:

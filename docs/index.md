@@ -17,7 +17,7 @@ If you're new, start with [getting-started.md](getting-started.md). If you know 
 
 - Source: <https://github.com/your-username/termpilot>
 - Issues: <https://github.com/your-username/termpilot/issues>
-- npm: <https://www.npmjs.com/package/@termpilot/server>
+- npm: <https://www.npmjs.com/package/termpilot-mcp>
 - Releases: <https://github.com/your-username/termpilot/releases>
 - Security policy: [SECURITY.md](../SECURITY.md)
 - Contributing: [CONTRIBUTING.md](../CONTRIBUTING.md)

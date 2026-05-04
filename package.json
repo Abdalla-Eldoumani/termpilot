@@ -1,5 +1,5 @@
 {
-  "name": "@termpilot/server",
+  "name": "termpilot-mcp",
   "version": "0.1.0-alpha.0",
   "description": "MCP server that drives terminal sessions like Playwright drives browsers. For testing CLIs, debuggers, REPLs, and operating systems.",
   "type": "module",

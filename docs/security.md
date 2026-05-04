@@ -84,7 +84,7 @@ Run termpilot as a non-privileged user with no access to your home directory:
 
 ```bash
 sudo useradd -m -s /bin/bash agent
-sudo -u agent npm install -g @termpilot/server
+sudo -u agent npm install -g termpilot-mcp
 # Configure your MCP client to launch termpilot as the agent user
 ```
 
@@ -103,7 +103,7 @@ docker run -it --rm \
   -e TERMPILOT_ALLOWED_COMMANDS=cargo,rustc,gdb,ls,cat,grep \
   --network none \
   node:22 \
-  npx @termpilot/server
+  npx termpilot-mcp
 ```
 
 Caveats: the MCP transport is stdio, so this only works if the MCP client launches the container directly. For Claude Desktop, the easier path is mounting termpilot's stdio across a `docker exec`.

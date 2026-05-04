@@ -15,7 +15,7 @@ This page gets termpilot running and connected to your MCP client. By the end, y
 ## Install
 
 ```bash
-npm install -g @termpilot/server
+npm install -g termpilot-mcp
 ```
 
 Verify the install:
