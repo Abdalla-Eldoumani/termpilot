@@ -65,7 +65,7 @@ export interface Snapshot {
 
 export type Predicate =
   | { type: "text"; match: string }
-  | { type: "regex"; pattern: string; flags?: string }
+  | { type: "regex"; pattern: string; flags?: string | undefined }
   | { type: "prompt" }
   | { type: "idle"; ms: number }
   | { type: "exit" }
