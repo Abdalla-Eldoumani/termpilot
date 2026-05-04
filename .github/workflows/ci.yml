@@ -29,6 +29,12 @@ jobs:
 
       - run: npm ci
 
+      # node-pty 1.1.0 ships a darwin-arm64 prebuilt that fails posix_spawnp at
+      # runtime on macos-latest. Rebuild from source against the local toolchain.
+      - name: Rebuild node-pty on macOS
+        if: runner.os == 'macOS'
+        run: npm rebuild node-pty --build-from-source
+
       - run: npm run check
 
       - run: npm run lint
