@@ -28,9 +28,9 @@ export function getSessionOrThrow(manager: SessionManager, id: string): Session 
 }
 
 export interface SnapshotRenderOptions {
-  includeStyles?: boolean;
-  maxLines?: number;
-  sinceLast?: boolean;
+  includeStyles?: boolean | undefined;
+  maxLines?: number | undefined;
+  sinceLast?: boolean | undefined;
 }
 
 export function snapshotYaml(

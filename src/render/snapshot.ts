@@ -5,9 +5,9 @@ import type { Session } from "../pty/session.js";
 import type { Cursor, ExitInfo, Line, RgbTriple, Snapshot, StyleRun } from "../types.js";
 
 export interface SnapshotOptions {
-  includeStyles?: boolean;
-  maxLines?: number;
-  sinceLast?: boolean;
+  includeStyles?: boolean | undefined;
+  maxLines?: number | undefined;
+  sinceLast?: boolean | undefined;
   defaultPromptRegex: string;
 }
 
