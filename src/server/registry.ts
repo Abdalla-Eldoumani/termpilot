@@ -3,6 +3,7 @@ import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { Config } from "../config/env.js";
 import type { SessionManager } from "../pty/manager.js";
 import { makeCloseTool } from "./tools/close.js";
+import { makeListTool } from "./tools/list.js";
 import { makeOpenTool } from "./tools/open.js";
 
 export interface ToolDeps {
@@ -22,5 +23,5 @@ export interface Tool {
 }
 
 export function buildRegistry(deps: ToolDeps): Tool[] {
-  return [makeOpenTool(deps), makeCloseTool(deps)];
+  return [makeOpenTool(deps), makeCloseTool(deps), makeListTool(deps)];
 }
