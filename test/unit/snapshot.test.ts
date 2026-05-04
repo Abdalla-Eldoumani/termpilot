@@ -6,10 +6,12 @@ import type { ExitInfo } from "../../src/types.js";
 
 const isWindows = process.platform === "win32";
 
-function minimalEnv(): Record<string, string> {
+function fullEnv(): Record<string, string> {
+  // Pass the entire host env through so platform-specific vars (TMPDIR,
+  // DYLD_LIBRARY_PATH, etc.) that node-pty's posix_spawnp may need on macOS
+  // aren't filtered out.
   const out: Record<string, string> = {};
-  for (const key of ["PATH", "HOME", "LANG", "LC_ALL"]) {
-    const value = process.env[key];
+  for (const [key, value] of Object.entries(process.env)) {
     if (value !== undefined) out[key] = value;
   }
   return out;
@@ -21,7 +23,7 @@ function spawnAndWait(args: string[]): Promise<Session> {
     command: "bash",
     args: ["-c", ...args],
     cwd: process.cwd(),
-    env: minimalEnv(),
+    env: fullEnv(),
     cols: 80,
     rows: 24,
     maxOutputBytes: 1024 * 1024,
@@ -82,13 +84,19 @@ describe.skipIf(isWindows)("buildSnapshot", () => {
     expect(yaml).toContain("hello");
   });
 
-  it("resets newLines after each snapshot", async () => {
+  it("resets newLines after markSnapshot advances the cursor", async () => {
     const session = await spawnAndWait(["echo first; echo second"]);
 
     const first = buildSnapshot(session, { defaultPromptRegex: "[$%>#]\\s*$" });
     expect(first.sinceLast.newLines).toBeGreaterThan(0);
 
-    const second = buildSnapshot(session, { defaultPromptRegex: "[$%>#]\\s*$" });
-    expect(second.sinceLast.newLines).toBe(0);
+    // buildSnapshot is pure: only markSnapshot advances the since-last cursor.
+    // Two consecutive buildSnapshot calls return the same newLines count.
+    const beforeMark = buildSnapshot(session, { defaultPromptRegex: "[$%>#]\\s*$" });
+    expect(beforeMark.sinceLast.newLines).toBe(first.sinceLast.newLines);
+
+    session.markSnapshot();
+    const afterMark = buildSnapshot(session, { defaultPromptRegex: "[$%>#]\\s*$" });
+    expect(afterMark.sinceLast.newLines).toBe(0);
   });
 });
