@@ -1,3 +1,5 @@
+import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+
 import type { Config } from "../config/env.js";
 import type { SessionManager } from "../pty/manager.js";
 
@@ -6,13 +8,7 @@ export interface ToolDeps {
   manager: SessionManager;
 }
 
-export type ToolContent =
-  | { type: "text"; text: string }
-  | { type: "image"; data: string; mimeType: string };
-
-export interface ToolResponse {
-  content: ToolContent[];
-}
+export type ToolResponse = CallToolResult;
 
 export interface Tool {
   name: string;
