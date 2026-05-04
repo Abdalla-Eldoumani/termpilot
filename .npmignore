@@ -1,0 +1,33 @@
+# Source — only ship compiled output
+src/
+test/
+examples/
+docs/
+scripts/
+
+# Configs
+tsconfig.json
+biome.json
+vitest.config.ts
+.github/
+
+# Agent infrastructure
+.agent/
+.claude/
+**/CLAUDE.md
+
+# Dev artifacts
+*.tsbuildinfo
+coverage/
+.vitest/
+.eslintcache
+
+# Runtime
+audit-*.jsonl
+termpilot-runtime/
+
+# Misc
+.editorconfig
+.gitignore
+.npmignore
+*.log
