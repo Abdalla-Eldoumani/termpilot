@@ -17,10 +17,10 @@ export interface ExitInfo {
   signal: string | null;
 }
 
-export interface Session {
-  meta: SessionMeta;
-  exit: ExitInfo | null;
+export interface SessionState {
   lastInputAt: string | null;
+  lastDataAt: string | null;
+  exit: ExitInfo | null;
 }
 
 export interface Cursor {
@@ -65,7 +65,7 @@ export interface Snapshot {
 
 export type Predicate =
   | { type: "text"; match: string }
-  | { type: "regex"; pattern: string }
+  | { type: "regex"; pattern: string; flags?: string }
   | { type: "prompt" }
   | { type: "idle"; ms: number }
   | { type: "exit" }
