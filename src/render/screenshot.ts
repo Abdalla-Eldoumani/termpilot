@@ -9,9 +9,9 @@ const DEFAULT_FONT_FAMILY = "Menlo, Consolas, monospace";
 export type Theme = "dark" | "light";
 
 export interface ScreenshotOptions {
-  fontSize?: number;
-  fontFamily?: string;
-  theme?: Theme;
+  fontSize?: number | undefined;
+  fontFamily?: string | undefined;
+  theme?: Theme | undefined;
 }
 
 interface ThemeColors {
