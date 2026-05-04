@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "termpilot": {
+      "type": "stdio",
+      "command": "termpilot",
+      "env": {
+        "TERMPILOT_WORKSPACE_ROOT": "/Users/you/projects/my-os",
+        "TERMPILOT_POLICY": "warn",
+        "TERMPILOT_AUDIT_LOG": "/tmp/termpilot-audit.jsonl"
+      }
+    },
+    "qemu": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "qemu-mcp-server"]
+    },
+    "bindiff": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/Users/you/projects/bindiff-mcp/dist/index.js"]
+    }
+  }
+}
