@@ -26,11 +26,11 @@ Yes. node-pty supports Windows via ConPTY (Windows 10 build 18309+). The CI matr
 
 ## How big are snapshots?
 
-For a typical 80×24 terminal with text content, a snapshot YAML runs 200–500 tokens. Sparse content drops to under 100 tokens. Dense content with `include_styles: true` can hit 1000+ tokens. Use `since_last: true` and `max_lines` to keep snapshots minimal during long-running sessions.
+For a typical 80x24 terminal with text content, a snapshot YAML runs 200 to 500 tokens. Sparse content drops to under 100 tokens. Dense content with `include_styles: true` can hit 1000+ tokens. Use `since_last: true` and `max_lines` to keep snapshots minimal during long-running sessions.
 
 ## How big are screenshots?
 
-A default 80×24 terminal at 14pt monospace produces a roughly 720×480 PNG, around 30–80 KB depending on content density. Larger sessions scale linearly. Vision-capable models accept these without trouble; bandwidth is rarely the bottleneck.
+A default 80x24 terminal at 14pt monospace produces a roughly 720x480 PNG, around 30 to 80 KB depending on content density. Larger sessions scale linearly. Vision-capable models accept these without trouble; bandwidth is rarely the bottleneck.
 
 ## What happens to running sessions when the MCP client restarts?
 
