@@ -6,6 +6,7 @@ import { makeCloseTool } from "./tools/close.js";
 import { makeListTool } from "./tools/list.js";
 import { makeOpenTool } from "./tools/open.js";
 import { makeResizeTool } from "./tools/resize.js";
+import { makeTypeTool } from "./tools/type.js";
 
 export interface ToolDeps {
   config: Config;
@@ -24,5 +25,11 @@ export interface Tool {
 }
 
 export function buildRegistry(deps: ToolDeps): Tool[] {
-  return [makeOpenTool(deps), makeCloseTool(deps), makeListTool(deps), makeResizeTool(deps)];
+  return [
+    makeOpenTool(deps),
+    makeCloseTool(deps),
+    makeListTool(deps),
+    makeResizeTool(deps),
+    makeTypeTool(deps),
+  ];
 }
