@@ -1,5 +1,11 @@
-import { Terminal } from "@xterm/headless";
+// @xterm/headless ships a webpack-bundled CJS module whose named exports
+// Node's ESM lexer can't see. Default import + destructure works at runtime;
+// the type alias below recovers the class type.
+import xtermPkg from "@xterm/headless";
 import { type IPty, spawn } from "node-pty";
+
+const { Terminal } = xtermPkg;
+type Terminal = InstanceType<typeof Terminal>;
 
 import { scrollbackLines } from "../security/limits.js";
 import type { ExitInfo } from "../types.js";
