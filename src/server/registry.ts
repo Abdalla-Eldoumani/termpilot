@@ -7,6 +7,7 @@ import { makeListTool } from "./tools/list.js";
 import { makeOpenTool } from "./tools/open.js";
 import { makePressTool } from "./tools/press.js";
 import { makeResizeTool } from "./tools/resize.js";
+import { makeSnapshotTool } from "./tools/snapshot.js";
 import { makeTypeTool } from "./tools/type.js";
 
 export interface ToolDeps {
@@ -33,5 +34,6 @@ export function buildRegistry(deps: ToolDeps): Tool[] {
     makeResizeTool(deps),
     makeTypeTool(deps),
     makePressTool(deps),
+    makeSnapshotTool(deps),
   ];
 }
