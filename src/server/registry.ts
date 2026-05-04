@@ -2,6 +2,7 @@ import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
 import type { Config } from "../config/env.js";
 import type { SessionManager } from "../pty/manager.js";
+import { makeOpenTool } from "./tools/open.js";
 
 export interface ToolDeps {
   config: Config;
@@ -19,9 +20,6 @@ export interface Tool {
   handler: (input: unknown) => Promise<ToolResponse>;
 }
 
-export function buildRegistry(_deps: ToolDeps): Tool[] {
-  // Phase 7 wires up the actual tools (open, close, list, resize, type, press,
-  // snapshot, wait_for, screenshot, run). Phase 6 only validates the server
-  // scaffolding, so the registry starts empty.
-  return [];
+export function buildRegistry(deps: ToolDeps): Tool[] {
+  return [makeOpenTool(deps)];
 }
