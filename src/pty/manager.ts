@@ -1,4 +1,5 @@
 import type { Config } from "../config/env.js";
+import { auditLog } from "../security/audit.js";
 import { checkSessionCap } from "../security/limits.js";
 import { decide } from "../security/policy.js";
 import * as logger from "../util/logger.js";
@@ -55,17 +56,21 @@ export class SessionManager {
       config: this.config,
     });
     if (!decision.allowed) {
+      this.logRefusal(opts, args, cwd, decision.reason);
       throw new Error(decision.reason);
     }
 
     const cap = checkSessionCap(this.sessions.size, this.config.maxSessions);
     if (!cap.ok) {
+      this.logRefusal(opts, args, cwd, cap.reason);
       throw new Error(cap.reason);
     }
 
     const id = opts.name ?? this.newId();
     if (this.sessions.has(id)) {
-      throw new Error(`session id already in use: ${id}`);
+      const reason = `session id already in use: ${id}`;
+      this.logRefusal(opts, args, cwd, reason);
+      throw new Error(reason);
     }
 
     const env = this.mergeEnv(userEnv);
@@ -82,8 +87,39 @@ export class SessionManager {
       promptRegex: opts.promptRegex,
     });
 
+    const startTime = Date.now();
+    session.onExit((exit) => {
+      auditLog({
+        ts: new Date().toISOString(),
+        sessionId: id,
+        command: opts.command,
+        args: [...args],
+        cwd,
+        policy: this.config.policy,
+        decision: "allowed",
+        reason: null,
+        exitCode: exit.code,
+        durationMs: Date.now() - startTime,
+      });
+    });
+
     this.sessions.set(id, session);
     return session;
+  }
+
+  private logRefusal(opts: OpenOptions, args: string[], cwd: string, reason: string): void {
+    auditLog({
+      ts: new Date().toISOString(),
+      sessionId: opts.name ?? "(refused)",
+      command: opts.command,
+      args: [...args],
+      cwd,
+      policy: this.config.policy,
+      decision: "refused",
+      reason,
+      exitCode: null,
+      durationMs: null,
+    });
   }
 
   get(id: string): Session | undefined {
