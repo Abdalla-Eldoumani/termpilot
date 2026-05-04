@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "termpilot": {
+      "command": "termpilot",
+      "env": {
+        "TERMPILOT_WORKSPACE_ROOT": "/Users/you/projects/my-os",
+        "TERMPILOT_POLICY": "warn",
+        "TERMPILOT_AUDIT_LOG": "/tmp/termpilot-audit.jsonl",
+        "TERMPILOT_MAX_SESSIONS": "16",
+        "TERMPILOT_LOG_LEVEL": "info"
+      }
+    },
+    "qemu": {
+      "command": "npx",
+      "args": ["-y", "qemu-mcp-server"],
+      "env": {
+        "MAX_VMS": "10",
+        "LOG_LEVEL": "info"
+      }
+    },
+    "bindiff": {
+      "command": "node",
+      "args": ["/Users/you/projects/bindiff-mcp/dist/index.js"],
+      "env": {
+        "BINDIFF_TOOLCHAIN_PREFIX": ""
+      }
+    }
+  }
+}
