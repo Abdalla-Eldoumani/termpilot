@@ -83,13 +83,19 @@ export class Session {
     });
 
     this.ptyProcess.onExit(({ exitCode, signal }) => {
-      this.exitInfo = {
+      const finalExit: ExitInfo = {
         code: exitCode,
         signal: signal !== undefined ? String(signal) : null,
       };
-      for (const listener of this.exitListeners) {
-        listener(this.exitInfo);
-      }
+      // xterm-headless processes writes off the main stack. Flush with an
+      // empty write before notifying exit listeners so consumers that read
+      // the buffer in their listener see the final state, not a partial one.
+      this.terminal.write("", () => {
+        this.exitInfo = finalExit;
+        for (const listener of this.exitListeners) {
+          listener(finalExit);
+        }
+      });
     });
   }
 
