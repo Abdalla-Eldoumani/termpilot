@@ -9,6 +9,7 @@ import { makePressTool } from "./tools/press.js";
 import { makeResizeTool } from "./tools/resize.js";
 import { makeSnapshotTool } from "./tools/snapshot.js";
 import { makeTypeTool } from "./tools/type.js";
+import { makeWaitForTool } from "./tools/wait_for.js";
 
 export interface ToolDeps {
   config: Config;
@@ -35,5 +36,6 @@ export function buildRegistry(deps: ToolDeps): Tool[] {
     makeTypeTool(deps),
     makePressTool(deps),
     makeSnapshotTool(deps),
+    makeWaitForTool(deps),
   ];
 }
