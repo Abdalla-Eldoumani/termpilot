@@ -33,8 +33,11 @@ export class Session {
   private readonly terminal: Terminal;
   private exitInfo: ExitInfo | null = null;
   private lastInputAtTime: Date | null = null;
-  private snapshotMark = 0;
+  private lastDataAtTime: Date | null = null;
   private bytesEmitted = 0;
+  private linesEmitted = 0;
+  private bytesSnapshotMark = 0;
+  private linesSnapshotMark = 0;
   private readonly exitListeners: ExitListener[] = [];
   private readonly dataListeners: DataListener[] = [];
 
@@ -65,6 +68,8 @@ export class Session {
 
     this.ptyProcess.onData((data) => {
       this.bytesEmitted += data.length;
+      this.linesEmitted += countNewlines(data);
+      this.lastDataAtTime = new Date();
       this.terminal.write(data);
       for (const listener of this.dataListeners) {
         listener(data);
@@ -98,8 +103,16 @@ export class Session {
     return this.lastInputAtTime ? this.lastInputAtTime.toISOString() : null;
   }
 
+  get lastDataAt(): string | null {
+    return this.lastDataAtTime ? this.lastDataAtTime.toISOString() : null;
+  }
+
   get bytesSinceMark(): number {
-    return this.bytesEmitted - this.snapshotMark;
+    return this.bytesEmitted - this.bytesSnapshotMark;
+  }
+
+  get linesSinceMark(): number {
+    return this.linesEmitted - this.linesSnapshotMark;
   }
 
   get buffer(): Terminal["buffer"] {
@@ -141,9 +154,19 @@ export class Session {
     this.dataListeners.push(callback);
   }
 
-  markSnapshot(): number {
-    const previous = this.snapshotMark;
-    this.snapshotMark = this.bytesEmitted;
-    return previous;
+  markSnapshot(): { newBytes: number; newLines: number } {
+    const newBytes = this.bytesEmitted - this.bytesSnapshotMark;
+    const newLines = this.linesEmitted - this.linesSnapshotMark;
+    this.bytesSnapshotMark = this.bytesEmitted;
+    this.linesSnapshotMark = this.linesEmitted;
+    return { newBytes, newLines };
   }
+}
+
+function countNewlines(data: string): number {
+  let count = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data.charCodeAt(i) === 10) count++;
+  }
+  return count;
 }
