@@ -6,13 +6,13 @@ import { Session } from "./session.js";
 
 export interface OpenOptions {
   command: string;
-  args?: string[];
-  cwd?: string;
-  env?: Record<string, string>;
-  cols?: number;
-  rows?: number;
-  name?: string;
-  promptRegex?: string;
+  args?: string[] | undefined;
+  cwd?: string | undefined;
+  env?: Record<string, string> | undefined;
+  cols?: number | undefined;
+  rows?: number | undefined;
+  name?: string | undefined;
+  promptRegex?: string | undefined;
 }
 
 const DEFAULT_COLS = 80;
