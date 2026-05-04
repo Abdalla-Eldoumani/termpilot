@@ -53,14 +53,15 @@ describe("audit log", () => {
 
   it("writes a refused entry when policy rejects the command", async () => {
     tools = setupTools({ TERMPILOT_POLICY: "warn" });
-    await expect(
-      tools.open.handler({ command: "rm", args: ["-rf", "/"] }),
-    ).rejects.toThrow(/policy: refused/);
+    await expect(tools.open.handler({ command: "rm", args: ["-rf", "/"] })).rejects.toThrow(
+      /policy: refused/,
+    );
 
     await flushAudit();
     const lines = readAuditLines(auditPath);
     expect(lines.length).toBe(1);
-    const entry = lines[0]!;
+    const entry = lines[0];
+    if (!entry) throw new Error("expected one audit line");
     expect(entry.decision).toBe("refused");
     expect(entry.command).toBe("rm");
     expect(entry.args).toEqual(["-rf", "/"]);
@@ -99,9 +100,7 @@ describe("audit log", () => {
     await expect(
       tools.open.handler({ command: "shutdown", args: ["-h", "now"] }),
     ).rejects.toThrow();
-    await expect(
-      tools.open.handler({ command: "ls", cwd: tmpdir() }),
-    ).rejects.toThrow();
+    await expect(tools.open.handler({ command: "ls", cwd: tmpdir() })).rejects.toThrow();
 
     await flushAudit();
     const lines = readAuditLines(auditPath);
