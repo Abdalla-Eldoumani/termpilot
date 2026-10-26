@@ -61,10 +61,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/termpilot.git"
+    "url": "git+https://github.com/Abdalla-Eldoumani/termpilot.git"
   },
-  "homepage": "https://github.com/your-username/termpilot#readme",
+  "homepage": "https://github.com/Abdalla-Eldoumani/termpilot#readme",
   "bugs": {
-    "url": "https://github.com/your-username/termpilot/issues"
+    "url": "https://github.com/Abdalla-Eldoumani/termpilot/issues"
   }
 }
