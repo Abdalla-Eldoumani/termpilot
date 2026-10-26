@@ -11,11 +11,6 @@ biome.json
 vitest.config.ts
 .github/
 
-# Agent infrastructure
-.agent/
-.claude/
-**/CLAUDE.md
-
 # Dev artifacts
 *.tsbuildinfo
 coverage/
