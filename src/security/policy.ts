@@ -21,8 +21,8 @@ interface DangerousPattern {
 }
 
 // Documented per pattern. Catches honest mistakes and casual injection.
-// Determined adversaries can encode payloads to evade; that is acknowledged
-// in .agent/SECURITY_MODEL.md.
+// Determined adversaries can encode payloads to evade it; docs/security.md
+// covers that limit.
 const DANGEROUS_PATTERNS: DangerousPattern[] = [
   // rm -rf, rm -fr, rm -Rf, rm -fR. Single combined-flag form.
   {
